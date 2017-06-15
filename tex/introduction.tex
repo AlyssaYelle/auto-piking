@@ -1,0 +1,19 @@
+% !TEX root = main.tex
+\section{Introduction}
+\label{sec:introduction}
+Let $X$ be an $N \times M$ radargram image with $x_{ij} \in \{0, \ldots, 255\}$ being a pixel intensity value corresponding to the radar signal strength for the $i^\text{th}$ location and the $j^\text{th}$ depth. We model $X$ as arising from a smoothly-changing mixture model,
+
+% \begin{equation}
+% \label{eqn:model}
+\begin{align}
+P(X) &= \prod_{i=1}^N P(\mathbf{x}_i | \boldsymbol\theta_i = \{ \mathbf{w}_i, r_i^s, \beta_i^s, r_i^b, \beta_i^b \}) P(\Theta) \\ 
+P(\mathbf{x}_i | \boldsymbol\theta_i) &= \prod_{j=1}^M \left[ w_{i}^a\text{Unif}(j) + w_{i}^s\text{NB}(j | r_i^s, \sigma(\beta_i^s)) + w_{i}^b\text{NB}(j | r_i^b, \sigma(\beta_i^b)) \right]^{x_{ij}} \\
+P(\Theta) &= \text{GTF}(\Theta | \lambda, \gamma) \, ,
+\end{align}
+% \end{aligned}
+% \end{equation}
+where $\mathbf{w}$ are the mixture weights, $(r_i^s, \beta_i^s)$ are the surface component parameters, $(r_i^b, \beta_i^b)$ are the bed component parameters, $\sigma$ is the logistic function, $\text{GTF}$ is the group trend filtering prior distribution with order $\gamma$; $\lambda$ can be included in the hierarchical model or fit via a grid search. The uniform component is used to account for observed constant-offset bias across an entire radargram. We also add the constraint that the mean of the surface component must not be greater than the mean of the surface component,
+\begin{equation}
+\label{eqn:surface_bed_constraint}
+\frac{\sigma(\beta_i^s) r_i^s}{1 - \sigma(\beta_i^s)} \leq \frac{\sigma(\beta_i^b) r_i^b}{1 - \sigma(\beta_i^b)} \,, \qquad i = 1, \ldots, n \, .
+\end{equation}

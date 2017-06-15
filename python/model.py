@@ -83,31 +83,35 @@ class Model(object):
 def create_model(model, dataset, variable_scope='simple-1d-conv', **kwargs):
     with tf.variable_scope(variable_scope):
         X = tf.placeholder(tf.float32, [None,dataset.nfeatures,1], name='X')
-        conv1 = Conv1D(32, kernel_size=5, strides=1, activation='relu', kernel_regularizer=l2(0.01),
-                                        input_shape=(None, dataset.nfeatures,1))(X)
-        pool1 = MaxPooling1D(pool_size=2)(conv1)
-        drop1 = Dropout(0.5)(pool1)
-        conv2 = Conv1D(64, kernel_size=5, strides=1, activation='relu', kernel_regularizer=l2(0.01))(drop1)
-        pool2 = MaxPooling1D(pool_size=2)(conv2)
-        drop2 = Dropout(0.5)(pool2)
-        drop2_flat = tf.reshape(drop2, [-1, 120*64])
-        hidden1 = Dense(128, kernel_regularizer=l2(0.01), activation='relu')(drop2_flat)
-        drop_h1 = Dropout(0.5)(hidden1)
-        hidden2 = Dense(64, kernel_regularizer=l2(0.01), activation='relu')(drop_h1)
-        drop_h2 = Dropout(0.5)(hidden2)
-        hidden3 = Dense(32, kernel_regularizer=l2(0.01), activation='relu')(drop_h2)
-        drop_h3 = Dropout(0.5)(hidden3)
+        # conv1 = Conv1D(32, kernel_size=5, strides=1, activation='relu', kernel_regularizer=l2(0.01),
+        #                                 input_shape=(None, dataset.nfeatures,1))(X)
+        # pool1 = MaxPooling1D(pool_size=2)(conv1)
+        # drop1 = Dropout(0.5)(pool1)
+        # conv2 = Conv1D(64, kernel_size=5, strides=1, activation='relu', kernel_regularizer=l2(0.01))(drop1)
+        # pool2 = MaxPooling1D(pool_size=2)(conv2)
+        # drop2 = Dropout(0.5)(pool2)
+        # drop2_flat = tf.reshape(drop2, [-1, 120*64])
+        # hidden1 = Dense(128, kernel_regularizer=l2(0.01), activation='relu')(drop2_flat)
+        # drop_h1 = Dropout(0.5)(hidden1)
+        # hidden2 = Dense(64, kernel_regularizer=l2(0.01), activation='relu')(drop_h1)
+        # drop_h2 = Dropout(0.5)(hidden2)
+        # hidden3 = Dense(32, kernel_regularizer=l2(0.01), activation='relu')(drop_h2)
+        # drop_h3 = Dropout(0.5)(hidden3)
+        # input_size = 32
+        X_flat = tf.reshape(X, [-1, dataset.nfeatures]) # TEMP
+        drop_h3 = X_flat
+        input_size = dataset.nfeatures
 
         if model == 'multinomial':
-            dist_model = MultinomialLayer(drop_h3, 32, dataset.nlabels, one_hot=False, **kwargs)
+            dist_model = MultinomialLayer(drop_h3, input_size, dataset.nlabels, one_hot=False, **kwargs)
         elif model == 'gmm':
-            dist_model = DiscreteParametricMixtureLayer(drop_h3, 32, dataset.nlabels, one_hot=False, **kwargs)
+            dist_model = DiscreteParametricMixtureLayer(drop_h3, input_size, dataset.nlabels, one_hot=False, **kwargs)
         elif model == 'lmm':
-            dist_model = DiscreteLogisticMixtureLayer(drop_h3, 32, dataset.nlabels, one_hot=False, **kwargs)
+            dist_model = DiscreteLogisticMixtureLayer(drop_h3, input_size, dataset.nlabels, one_hot=False, **kwargs)
         elif model == 'sdp':
-            dist_model = LocallySmoothedMultiscaleLayer(drop_h3, 32, dataset.nlabels, one_hot=False, **kwargs)
+            dist_model = LocallySmoothedMultiscaleLayer(drop_h3, input_size, dataset.nlabels, one_hot=False, **kwargs)
         elif model == 'fast-sdp':
-            dist_model = ScalableLocallySmoothedMultiscaleLayer(drop_h3, 32, dataset.nlabels, one_hot=False, **kwargs)
+            dist_model = ScalableLocallySmoothedMultiscaleLayer(drop_h3, input_size, dataset.nlabels, one_hot=False, **kwargs)
         else:
             raise Exception('Unknown model type: {0}'.format(model))
 

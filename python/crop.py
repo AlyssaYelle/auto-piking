@@ -15,14 +15,15 @@ if __name__ == '__main__':
 
     labels = np.argmin(diff, axis=0)
 
-    train = (unpicked / 255.).T
-    np.savetxt(outfile + '_x.csv', train, delimiter=',')
-    np.savetxt(outfile + '_y.csv', labels, delimiter=',', fmt='%d')
+    train = 1. - (unpicked / 255.).T
+    np.savetxt('data/' + outfile + '_x.csv', train, delimiter=',')
+    np.savetxt('data/' + outfile + '_y.csv', labels, delimiter=',', fmt='%d')
 
     plt.imshow(diff, cmap='gray')
     plt.show()
 
     plt.plot(labels)
+    plt.gca().invert_yaxis()
     plt.show()
 
 
