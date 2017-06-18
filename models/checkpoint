@@ -1,2 +1,2 @@
-model_checkpoint_path: "simple1d"
-all_model_checkpoint_paths: "simple1d"
+model_checkpoint_path: "mixture"
+all_model_checkpoint_paths: "mixture"

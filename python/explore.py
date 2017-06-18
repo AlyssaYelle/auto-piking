@@ -1,13 +1,13 @@
 import matplotlib.pylab as plt
 import numpy as np
 import sys
-
+import os
 
 def load_dataset(transect_name):
     # Load all features
-    all_features = np.loadtxt('data/{}_u2u_bed_x.csv'.format(transect_name), delimiter=',')
-    surface = np.loadtxt('data/{}_f2f_srf_y.csv'.format(transect_name), delimiter=',').astype(int)
-    bed = np.loadtxt('data/{}_f2f_bed_y.csv'.format(transect_name), delimiter=',').astype(int)
+    all_features = np.loadtxt('data/{}_bed_unfoc_x.txt'.format(transect_name))
+    surface = np.loadtxt('data/{}_srf_unfoc_y.txt'.format(transect_name)).astype(int)
+    bed = np.loadtxt('data/{}_bed_foc_y.txt'.format(transect_name)).astype(int)
 
     # # Filter out missing piks
     # mask = all_labels > 0
@@ -48,9 +48,10 @@ def plot_dist_rel(ax, data, nbins=20):
     ax.plot(1. / nbins * x, means, color='blue')
     ax.fill_between(1. / nbins * x, lower, upper, color='blue', alpha=0.35)
 
-
-if __name__ == '__main__':
-    transect_name = sys.argv[1]
+def analyze(transect_name, outdir):
+    outdir = os.path.join(outdir, transect_name.replace(':', '-'))
+    if not os.path.exists(outdir):
+        os.makedirs(outdir)
 
     # Parameters for training
     nepochs = 100 # Number of epochs to train for
@@ -62,6 +63,36 @@ if __name__ == '__main__':
     # plt.show()
     # plt.clf()
     # plt.close()
+
+    # target = 50
+    # context = 0.25
+    # max_point = np.argmax(X[target])
+    # start = max(0, max_point - int(np.round(X.shape[1]*context)))
+    # end = min(X.shape[1], max_point + int(np.round(X.shape[1]*context)))
+    # logx = np.log(np.arange(X.shape[1]) + 1)
+    # fit = np.polyfit(logx[start:end], X[target,start:end], 2)
+    # print fit
+    # plt.plot(logx, X[target])
+    # plt.plot(logx, fit[2] + fit[1]*logx + fit[0]*logx**2, color='orange')
+    # plt.show()
+    # plt.clf()
+    # plt.close()
+
+    from scipy.stats import nbinom
+    xvals = np.arange(X.shape[1])
+    for target in xrange(0,X.shape[0],50):
+        plt.scatter(xvals, X[target])
+        # plt.plot(xvals, X[target].sum() * nbinom.pmf(xvals, 2, 0.03), color='orange')
+        # plt.show()
+        if surface[target] > 0:
+            plt.axvline(surface[target], color='orange', ls='--', label='Surface label', lw=3)
+        if bed[target] > 0:
+            plt.axvline(bed[target], color='green', ls='-.', label='Bed label', lw=3)
+        plt.legend(loc='upper right')
+        plt.savefig(os.path.join(outdir, 'sample-{}.pdf'.format(target)), bbox_inches='tight')
+        plt.clf()
+        plt.close()
+        np.savetxt(os.path.join(outdir, 'sample-{}.txt'.format(target)), X[target])
 
     # windows = np.zeros((len(X), 100))
     # for i,j in enumerate(y):
@@ -89,35 +120,46 @@ if __name__ == '__main__':
     # plt.clf()
     # plt.close()
 
+    # sked = np.array([(Xsmooth[:,i] - Xsmooth[:,i+1]).std() for i in xrange(Xsmooth.shape[1]-1)])
+    # plt.plot(sked)
+    # plt.show()
+    # plt.clf()
+    # plt.close()
+
     # plt.hist(X[500,80:350], bins=50)
     # # plt.axvline(y[500], ls='--', c='r')
     # plt.show()
     # plt.clf()
     # plt.close()
 
-    air = []
-    ice = []
-    ground = []
-    max_air, max_ice, max_ground = 0, 0, 0
-    for x, s, b in zip(X, surface, bed):
-        air.append(list(x[:s]))
-        ice.append(list(x[s:b]))
-        ground.append(list(x[b:]))
-        max_air = max(max_air, s)
-        max_ice = max(max_ice, b - s)
-        max_ground = max(max_ground, len(x) - b)
-
-    fig, axarr = plt.subplots(1,3)
-    plot_dist_abs(axarr[0], air, max_air)
-    plot_dist_abs(axarr[1], ice, max_ice)
-    plot_dist_abs(axarr[2], ground, max_ground)
-    # plot_dist_rel(axarr[0], air)
-    # plot_dist_rel(axarr[1], ice)
-    # plot_dist_rel(axarr[2], ground)
-    plt.show()
-    plt.clf()
-    plt.close()
+    # air = []
+    # ice = []
+    # ground = []
+    # max_air, max_ice, max_ground = 0, 0, 0
+    # for x, s, b in zip(X, surface, bed):
+    #     air.append(list(x[:s]))
+    #     ice.append(list(x[s:b]))
+    #     ground.append(list(x[b:]))
+    #     max_air = max(max_air, s)
+    #     max_ice = max(max_ice, b - s)
+    #     max_ground = max(max_ground, len(x) - b)
 
 
+    # fig, axarr = plt.subplots(1,3)
+    # plot_dist_abs(axarr[0], air, max_air)
+    # plot_dist_abs(axarr[1], ice, max_ice)
+    # plot_dist_abs(axarr[2], ground, max_ground)
+    # # plot_dist_rel(axarr[0], air)
+    # # plot_dist_rel(axarr[1], ice)
+    # # plot_dist_rel(axarr[2], ground)
+    # plt.show()
+    # plt.clf()
+    # plt.close()
+
+if __name__ == '__main__':
+    for transect_name in os.listdir('screenshots/focused/bed/picked'):
+        transect_name = transect_name.replace('.png', '')
+        print transect_name
+        analyze(transect_name, 'plots')
 
 
