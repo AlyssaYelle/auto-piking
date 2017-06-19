@@ -10,7 +10,7 @@ y = scan(sprintf('data/%s_srf_unfoc_y.txt', transect.name))
 # yhat = integer(length(y))
 # dim(X)[1]
 doMC::registerDoMC(parallel::detectCores())
-yhat = foreach(i=1:20) %dopar% {
+yhat = foreach(i=1:dim(X)[1]) %dopar% {
     x = as.numeric(X[i,])
     a = trendfilter(x, ord=1)
     cv = cv.trendfilter(a)
@@ -20,3 +20,5 @@ yhat = foreach(i=1:20) %dopar% {
 }
 yhat = as.integer(yhat)
 
+plot(y, yhat)
+abline(0,1)
