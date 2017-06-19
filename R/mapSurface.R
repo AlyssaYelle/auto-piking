@@ -22,3 +22,19 @@ yhat = as.integer(yhat)
 
 plot(y, yhat)
 abline(0,1)
+
+# Just use the raw pixel intensity and take the max
+for (transect.name in gsub(".png", "", list.files(path="screenshots/focused/bed/picked"))){
+    X = read.table(sprintf('data/%s_srf_unfoc_x.txt', transect.name), header=F)
+    y = scan(sprintf('data/%s_srf_unfoc_y.txt', transect.name))
+    zhat = foreach(i=1:dim(X)[1]) %do% {
+    x = as.numeric(X[i,])
+    which.max(x) - 1
+    }
+    zhat = as.integer(zhat)
+    plot(y, zhat)
+    abline(0,1)
+
+}
+
+
