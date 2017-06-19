@@ -59,10 +59,12 @@ def analyze(transect_name, outdir):
 
     # Load our dataset
     X, surface, bed = load_dataset(transect_name)
-    # plt.imshow(X.T, cmap='plasma')
-    # plt.show()
-    # plt.clf()
-    # plt.close()
+    plt.imshow(X.T, cmap='plasma')
+    for target in xrange(0,X.shape[0],50):
+        plt.axvline(target, ls='--', alpha=0.5, c='black')
+    plt.savefig(os.path.join(outdir, 'data-samples.pdf'), bbox_inches='tight')
+    plt.clf()
+    plt.close()
 
     # target = 50
     # context = 0.25
