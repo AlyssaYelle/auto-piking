@@ -9,7 +9,7 @@ My first thought was that edge detection could be useful, at least for 'ideal' r
 
 ![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/example_bedunpicked.png "Example of an ideal ice-penetrating radar image")
 
-Skikit-image's feature module conveniently has a built in canny edge detection function. Canny edge detection works by first applying a Gaussian filter with some user-defined sigma to smooth the image. It then finds the intensity gradients of the image and "thins" potential edges and then suppresses weak edges using hysteresis. It outputs a 2-D binarry array edge map. See below for canny edge maps of varying sigmas applied over the original radar image.
+Scikit-image's feature module conveniently has a built in canny edge detection function. Canny edge detection works by first applying a Gaussian filter with some user-defined sigma to smooth the image. It then finds the intensity gradients of the image and "thins" potential edges and then suppresses weak edges using hysteresis. It outputs a 2-D binarry array edge map. See below for canny edge maps of varying sigmas applied over the original radar image.
 
 ![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/edges_im_overlay.png "Trying out Canny edge detection with various sigmas")
 
