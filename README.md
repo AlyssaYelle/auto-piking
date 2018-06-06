@@ -7,7 +7,7 @@ Glaciologists can learn a lot from ice-penetrating radar data. After analyzing t
 
 My first thought was that edge detection could be useful, at least for 'ideal' radar images (by ideal I mean that the image is free of artifacts caused by things like crevasses or water at the surface of the ice). See below for an example of an ideal radar image. Note that the surface and bottom of the ice are brighter, or have a higher pixel intensity, than their relative vertical surroundings.
 
-![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/bed_example.png "Example of an ideal ice-penetrating radar image")
+![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/example_bedunpicked.png "Example of an ideal ice-penetrating radar image")
 
 Skikit-image's feature module conveniently has a built in canny edge detection function. Canny edge detection works by first applying a Gaussian filter with some user-defined sigma to smooth the image. It then finds the intensity gradients of the image and "thins" potential edges and then suppresses weak edges using hysteresis. It outputs a 2-D binarry array edge map. See below for canny edge maps of varying sigmas applied over the original radar image.
 
