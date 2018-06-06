@@ -1,3 +1,8 @@
+'''
+Sanity check to see if canny edge detection is reasonable
+'''
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import ndimage as ndi
@@ -25,9 +30,10 @@ fig, ((ax11, ax21, ax31), (ax12, ax22, ax32)) = plt.subplots(nrows=2, ncols=3, f
 
 ax11.imshow(im, cmap=plt.cm.gray)
 ax11.axis('off')
-ax11.set_title('noisy image', fontsize=10)
+ax11.set_title('Original image', fontsize=10)
 
-ax21.imshow(edges1, cmap=plt.cm.gray)
+ax21.imshow(im, cmap=plt.cm.gray)
+ax21.contour(edges1)
 ax21.axis('off')
 ax21.set_title('Canny filter, $\sigma=1$', fontsize=10)
 
@@ -35,7 +41,8 @@ ax31.imshow(edges2, cmap=plt.cm.gray)
 ax31.axis('off')
 ax31.set_title('Canny filter, $\sigma=5$', fontsize=10)
 
-ax12.imshow(edges3, cmap=plt.cm.gray)
+ax12.imshow(im, cmap=plt.cm.gray)
+ax12.contour(edges3)
 ax12.axis('off')
 ax12.set_title('Canny filter, $\sigma=10$', fontsize=10)
 
@@ -50,3 +57,6 @@ ax32.set_title('Canny filter, $\sigma=20$', fontsize=10)
 fig.tight_layout()
 
 plt.show()
+
+
+
