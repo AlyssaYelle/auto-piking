@@ -1,4 +1,4 @@
-# Automatically mapping the Antarctic Ice Sheet
+# Automatically Mapping the Antarctic Ice Sheet
 
 Glaciologists can learn a lot from ice-penetrating radar data. After analyzing the radar image via "picking" the surface and bottom of the ice sheet, we can then retrieve information such the thickness of the ice and the reflectivity/specularity of the bottom of the ice. Knowing the reflectivity and specularity is essential for detecting subglacial water. Currently, picking the image is a time consuming manual task. My goal is to automate this process. 
 
@@ -22,6 +22,17 @@ Below is the radar image picked by an expert (blue) and with upper and lower bou
 ![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/example_bedpicked_zoom.png "Human picker vs. canny filter")
 
 I don't think that edge detection is the ideal solution to my problem since most radar images are not ideal like the one provided here as an example, but given that the results are pretty good with this quick and dirty approach, I think a better solution is within my reach.
+
+
+## Mapping the Ice Sheet Surface
+
+Mapping the surface of the ice is a much more simple problem than mapping the bottom. Barring the presence of mountains, the surface generally presents as an extremely bright, fairly straight line. A rather naive way to go about mapping the surface is to simply read the radar image as an array of pixel intensities and find the maximum pixel for each column. This actually produces pretty good results! See below for an expert picked surface (red) and the auto picked surface (yellow).
+
+![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/example_srf_expertpicked.png "Expert picked surface")
+![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/srf_autopicked.png "Auto picked surface")
+
+
+
 
 
 
