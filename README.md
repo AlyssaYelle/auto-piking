@@ -9,7 +9,7 @@ My first thought was that edge detection could be useful, at least for 'ideal' r
 
 ![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/example_bedunpicked.png "Example of an ideal ice-penetrating radar image")
 
-Scikit-image's feature module conveniently has a built in canny edge detection function. Canny edge detection works by first applying a Gaussian filter with some user-defined sigma to smooth the image. It then finds the intensity gradients of the image and "thins" potential edges and then suppresses weak edges using hysteresis. It outputs a 2-D binarry array edge map. See below for canny edge maps of varying sigmas applied over the original radar image.
+Scikit-image's feature module conveniently has a built in canny edge detection function. Canny edge detection works by first applying a Gaussian filter with some user-defined sigma to smooth the image. It then finds the intensity gradients of the image and "thins" potential edges and then suppresses weak edges using hysteresis. It outputs a 2-D binary array edge map. See below for canny edge maps of varying sigmas applied over the original radar image.
 
 ![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/edges_im_overlay.png "Trying out Canny edge detection with various sigmas")
 
@@ -21,7 +21,9 @@ Below is the radar image picked by an expert (blue) and with upper and lower bou
 
 ![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/example_bedpicked_zoom.png "Human picker vs. canny filter")
 
-I don't think that edge detection is the ideal solution to my problem since most radar images are not ideal like the one provided here as an example, but given that the results are pretty good with this quick and dirty approach, I think a better solution is within my reach.
+Let me stress that while the results seen above are promising, this method fails when the radar image is not basically visually perfect. I ran it on another transect from the same region of Antartica that yielded a slightly less clear radar image, and the results were... not good. See below.
+
+![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/edges_bad.png "Canny filter unable to reliably capture bed")
 
 
 ## Mapping the Ice Sheet Surface
