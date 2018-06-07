@@ -28,7 +28,8 @@ def edge_detection(im, sig, thresh1, thresh2):
 
 
 if __name__ == '__main__':
-	transect_name = 'LSE-GCX0f-Y03a.png.txt'
+	#transect_name = 'LSE-GCX0f-Y03a.png.txt'
+	transect_name = 'LSE-GCX0f-Y153a.png.txt'
 	im = read_im(transect_name)
 
 	thresh1 = 0.07

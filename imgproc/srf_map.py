@@ -33,7 +33,8 @@ def max_pixel_map(im):
 
 
 if __name__ == '__main__':
-	transect_name = 'LSE-GCX0f-Y03a.png.txt'
+	#transect_name = 'LSE-GCX0f-Y03a.png.txt'
+	transect_name = 'LSE-GCX0f-Y153a.png.txt'
 	im = read_im(transect_name)
 
 	srf_map = max_pixel_map(im)
