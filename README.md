@@ -34,6 +34,12 @@ Mapping the surface of the ice is a much more simple problem than mapping the bo
 ![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/srf_autopicked.png "Auto picked surface")
 
 
+## Understanding Radar Images via Simulation
+
+![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/models/figs/sim1.png "Simulation 1")![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/models/figs/sim2.png "Simulation 2")![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/models/figs/sim3.png "Simulation 3")![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/models/figs/sim4.png "Simulation 4")![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/models/figs/sim5.png "Simulation 5")![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/models/figs/sim6.png "Simulation 6")
+
+
+
 
 
 
