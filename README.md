@@ -42,7 +42,8 @@ Based on the results from canny edge detection and my surface map, I think I wil
 - Between horizontal distance *d* and *d+1*, the surface or bed can jump up or down within some range of pixels with some probability *p*.
 - The surface and bed lines each live within some vertical range of pixels
 - The surface line can never be lower than the bed line
-I played with the actual numbers until I got some simulations that look like what I might actually see in a real radar gram (I told you, this simulation is *really* hack-y). See two examples below.
+I played with the actual numbers until I got some simulations that look like what I might actually see in a real radar gram (I told you, this simulation is *really* hack-y). 
+See two examples below.
 
 ![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/models/figs/sim2.png "Simulation representing shallow ice")![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/models/figs/sim5.png "Simulation representing deep ice")
 
