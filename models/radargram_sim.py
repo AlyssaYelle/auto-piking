@@ -1,6 +1,5 @@
 '''
-random processes to simulate a radargram
-work in progress
+simulates radar image
 '''
 
 
@@ -18,64 +17,85 @@ def rg_init():
 	return rg
 
 # simulate srf
-def sim_srf(p, q, r, start):
-	ul_stay = 1-p
-	ll_stay = r
-	srf = rg_init()
-	srf[start][0] = 1
-	depth = start
+def sim_srf(bed):
+	start = np.random.randint(800,900)
+	jumps = [-3,-2,-1,-1,0,0,1,1,2,3]
+	return_pix = 0
+
+	rwalk = []
+	rwalk.append(start)
+
+	upper_thresh = 950
+	lower_thresh = 700
 
 	for i in range(1,1000):
-
-		state = np.random.uniform(0,1)
-		if state < ll_stay:
-			depth -= 1
-		elif ll_stay < state < ul_stay:
-			depth = depth
-		elif state > ul_stay:
-			depth += 1
-		if depth < 975:
-			srf[depth][i] = 1
-	return srf
-
-
-
-# markov chain
-def markov_chain(mtx):
-	pass
+		jump = np.random.randint(0,10)
+		if rwalk[i-1] != 0:
+			next_pix = rwalk[i-1] + jumps[jump]
+		else:
+			next_pix = return_pix + jumps[jump]
+		if next_pix > upper_thresh or next_pix < lower_thresh:
+			rwalk.append(0)
+			if rwalk[i-1] != 0:
+				return_pix = rwalk[i-1]
+		elif next_pix < bed[i]:
+			rwalk.append(bed[i])
+			
+		else:
+			rwalk.append(next_pix)
+	return rwalk
 
 
-# simulate bed with markov chain + random walk in state(no lake)
-def sim_bed(p,q,r,start,rg):
-	ul_stay = 1-p
-	ll_stay = r
-	rg[start][0] = 1
-	depth = start
+
+# simulate bed 
+def sim_bed():
+	start = np.random.randint(100,900)
+	jumps = [-15,-10,-5,-2,-1,1,2,5,10,15]
+	return_pix = 0
+
+	rwalk = []
+	rwalk.append(start)
+
+	upper_thresh = 950
+	lower_thresh = 50
 
 	for i in range(1,1000):
+		jump = np.random.randint(0,10)
+		if rwalk[i-1] != 0:
+			next_pix = rwalk[i-1] + jumps[jump]
+		else:
+			next_pix = return_pix + jumps[jump]
+		if next_pix > upper_thresh or next_pix < lower_thresh:
+			rwalk.append(0)
+			if rwalk[i-1] != 0:
+				return_pix = rwalk[i-1]
+			
+		else:
+			rwalk.append(next_pix)
+	return rwalk
 
-		state = np.random.uniform(0,1)
-		if state < ll_stay:
-			depth -= 7
-		elif ll_stay < state < ul_stay:
-			depth = depth
-		elif state > ul_stay:
-			depth += 7
-		rg[depth][i] = 1
+
+def make_contour_map(bed, srf):
+	rg = rg_init()
+	for i in range(1000):
+		if bed[i] != 0:
+			rg[bed[i]][i] = 1
+		if srf[i] != 0:
+			rg[srf[i]][i] = 1
+
 	return rg
 
 
 
 
-if __name__ == '__main__':
-	rg = rg_init()
 
-	srf = sim_srf(.1,.8,.1,900)
-	bed_start = np.random.randint(100,900)
-	map = sim_bed(.5,.01,.49,bed_start,rg)
+if __name__ == '__main__':
+
+	bed = sim_bed()
+	srf = sim_srf(bed)
+	map = make_contour_map(bed, srf)
 
 	plt.contour(map)
-	plt.contour(srf, colors = 'blue')
 	plt.show()
 
 
