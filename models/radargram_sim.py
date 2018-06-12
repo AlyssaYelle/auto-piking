@@ -76,14 +76,16 @@ def sim_bed():
 
 
 def make_contour_map(bed, srf):
-	rg = rg_init()
+	rg_srf = rg_init()
+	rg_bed = rg_init()
 	for i in range(1000):
 		if bed[i] != 0:
-			rg[bed[i]][i] = 1
+			rg_bed[bed[i]][i] = 1
 		if srf[i] != 0:
-			rg[srf[i]][i] = 1
+			rg_srf[srf[i]][i] = 1
 
-	return rg
+	return (rg_srf,rg_bed)
+
 
 
 
@@ -95,7 +97,8 @@ if __name__ == '__main__':
 	srf = sim_srf(bed)
 	map = make_contour_map(bed, srf)
 
-	plt.contour(map)
+	plt.contour(map[0], colors = 'blue')
+	plt.contour(map[1])
 	plt.show()
 
 
