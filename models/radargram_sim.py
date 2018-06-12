@@ -17,6 +17,8 @@ def rg_init():
 	return rg
 
 # simulate srf
+# smaller vertical jumps than bed
+# srf cannot dip below bed
 def sim_srf(bed):
 	start = np.random.randint(800,900)
 	jumps = [-3,-2,-1,-1,0,0,1,1,2,3]
@@ -48,6 +50,8 @@ def sim_srf(bed):
 
 
 # simulate bed 
+# assume some distribution of vertical jumps from col to col
+# radar can't penetrate ice deeper than some thresh
 def sim_bed():
 	start = np.random.randint(100,900)
 	jumps = [-15,-10,-5,-2,-1,1,2,5,10,15]
@@ -75,7 +79,8 @@ def sim_bed():
 	return rwalk
 
 
-def make_contour_map(bed, srf):
+def contour_map_assist(bed, srf):
+	# takes in bed, srf, converts to 1000x1000 contour array
 	rg_srf = rg_init()
 	rg_bed = rg_init()
 	for i in range(1000):
@@ -95,7 +100,7 @@ if __name__ == '__main__':
 
 	bed = sim_bed()
 	srf = sim_srf(bed)
-	map = make_contour_map(bed, srf)
+	map = contour_map_assist(bed, srf)
 
 	plt.contour(map[0], colors = 'blue')
 	plt.contour(map[1])
