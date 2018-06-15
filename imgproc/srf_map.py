@@ -11,7 +11,7 @@ from skimage import img_as_float
 
 # reads in transect of interest
 def read_im(transect_name):
-	return np.loadtxt('radarfigure/data/{}'.format(transect_name))
+	return np.loadtxt('radarfigure/data/raw_imgs/{}'.format(transect_name))
 
 
 # take in array of pixel intensities

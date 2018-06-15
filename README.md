@@ -43,11 +43,12 @@ Based on the results from canny edge detection and my surface map, I think I wil
 - The surface and bed lines each live within some vertical range of pixels
 - The surface line can never be lower than the bed line
 I played with the actual numbers until I got some simulations that look like what I might actually see in a real radar gram (I told you, this simulation is *really* hack-y). 
+
 See two examples below.
 
 ![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/models/figs/sim2.png "Simulation representing shallow ice")![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/models/figs/sim5.png "Simulation representing deep ice")
 
-I think the next step will be to study some actual expert-picked surfact and bed lines to see what the actual distribution of vertical pixel jumps looks like, and build a model based off that.
+I think the next step will be to study some actual expert-picked surface and bed lines to see what the actual distribution of vertical pixel jumps looks like, and build a model based off that.
 
 
 
