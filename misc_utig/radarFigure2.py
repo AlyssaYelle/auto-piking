@@ -296,16 +296,34 @@ class RadarData(object):
         if waisutils.season.pst_is_cresis(pst):
             self.data = radutils.radutils.load_cresis_data(pst, product,
                                                            channel)
+            print('cressis')
+            print(pst)
+            print(product)
+            print(channel)
         elif waisutils.season.pst_is_bas(pst):
             # no diff channels...
             self.data = radutils.radutils.load_bas_data(pst, product)
+            print('bas')
+            print(pst)
+            print(product)
+            print(channel)
         else:
             self.data = radutils.radutils.load_radar_data(pst, product, channel,
                                                           filename)
+            print('not cressis or bas')
+            print(pst)
+            print(product)
+            print(channel)
+            print(filename)
 
         self.num_traces, self.num_samples = self.data.shape
         self.min_val = np.amin(self.data)
         self.max_val = np.amax(self.data)
+        print('num traces:', self.num_traces)
+        print('num samples:', self.num_samples)
+        print('data shape:', self.data.shape)
+        print('min value', self.min_val)
+        print('max value:', self.max_val)
 
 
 class PlotObjects(object):
@@ -533,6 +551,8 @@ class BasicRadarWindow(QtGui.QMainWindow):
             self.plot_params.product = 'pik1'
         else:
             self.plot_params.product = self.transect_data.available_products[0]
+        print('printing stuff')
+        print(self.pst, self.plot_params.product)
         self.plot_config.available_channels = radutils.radutils.get_available_channels(self.pst, self.plot_params.product)
         if 2 in self.plot_config.available_channels:
             self.plot_params.channel = 2
