@@ -53,19 +53,20 @@ def srf_jumps(picked_im, unpicked_im):
 
 
 if __name__ == '__main__':
-	#transect_name = 'LSE-GCX0f-Y27a.png.txt'
-	transect_name = 'LSE-GCX0f-Y165a.png.txt'
-	a = read_picked_im(transect_name)
-	b = read_unpicked_im(transect_name)
-	pos = srf_pos(a,b)
+	transects = ['LSE-GCX0f-Y135a.png.txt','LSE-GCX0f-Y147a.png.txt','LSE-GCX0f-Y159a.png.txt', 'LSE-GCX0f-Y15b.png.txt', 'LSE-GCX0f-Y27a.png.txt']
+	for transect in transects:
+		a = read_picked_im(transect)
+		b = read_unpicked_im(transect)
+		pos = srf_pos(a,b)
 
 
-	jumps = srf_jumps(a,b)
-	#print jumps
+		jumps = srf_jumps(a,b)
 
-	plt.hist(jumps)
-	plt.show()
-	plt.close()
+
+		plt.hist(jumps)
+		plt.title(transect)
+		plt.show()
+		plt.close()
 
 
 

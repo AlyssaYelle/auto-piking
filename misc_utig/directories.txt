@@ -1,0 +1,5 @@
+source $WAIS/syst/linux/src/xtra/SEGY/iesx/params
+outpath=$WAIS/targ/xtra/$SEASON/${SEGY}/$PST
+bxds=$outpath/bxds.float
+bxds_o=$WAIS/targ/xtra/$SEASON/${PROCESSER}/$PST/${DATA}
+
