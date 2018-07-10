@@ -2,6 +2,8 @@
 
 Glaciologists can learn a lot from ice-penetrating radar data. After analyzing the radar image via "picking" the surface and bottom of the ice sheet, we can then retrieve information such the thickness of the ice and the reflectivity/specularity of the bottom of the ice. Knowing the reflectivity and specularity is essential for detecting subglacial water. Currently, picking the image is a time consuming manual task. My goal is to automate this process. 
 
+If you aren't familiar with ice radar and would like a quick introduction, please feel free to check out [this post](https://alyssayelle.github.io/2018/06/19/into-to-ice-radar.html) on my blog.
+
 
 ## Edge Detection
 
