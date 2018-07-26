@@ -7,25 +7,7 @@ If you aren't familiar with ice radar and would like a quick introduction, pleas
 
 ## Edge Detection
 
-My first thought was that edge detection could be useful, at least for 'ideal' radar images (by ideal I mean that the image is free of artifacts caused by things like crevasses or water at the surface of the ice). See below for an example of an ideal radar image. Note that the surface and bottom of the ice are brighter, or have a higher pixel intensity, than their relative vertical surroundings.
-
-![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/example_bedunpicked.png "Example of an ideal ice-penetrating radar image")
-
-Scikit-image's feature module conveniently has a built in canny edge detection function. Canny edge detection works by first applying a Gaussian filter with some user-defined sigma to smooth the image. It then finds the intensity gradients of the image and "thins" potential edges and then suppresses weak edges using hysteresis. It outputs a 2-D binary array edge map. See below for canny edge maps of varying sigmas applied over the original radar image.
-
-![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/edges_im_overlay.png "Trying out Canny edge detection with various sigmas")
-
-At sigma = 10, the canny filter captures the upper and lower boundaries of the surface and bottom of the ice fairly well:
-
-![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/bed_boundary.png "At sigma = 10 the Canny filter very roughly identifies the ice-air interface and ice-bedrock interface")
-
-Below is the radar image picked by an expert (blue) and with upper and lower boundary of the bottom of the ice identified by the canny filter (pink). The canny filter successfully finds the bottom of the ice, albeit the result is more noisy than I prefer.
-
-![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/example_bedpicked_zoom.png "Human picker vs. canny filter")
-
-Let me stress that while the results seen above are promising, this method fails when the radar image is not basically visually perfect. I ran it on another transect from the same region of Antartica that yielded a slightly less clear radar image, and the results were... not good. See below.
-
-![alt text](https://github.com/AlyssaYelle/auto-piking/blob/master/imgproc/example_imgs/edges_bad.png "Canny filter unable to reliably capture bed")
+[Blog post on attempts to segment radar transects using a canny filter](https://alyssayelle.github.io/2018/07/26/ice2.html)
 
 
 ## Mapping the Ice Sheet Surface

@@ -35,6 +35,9 @@ the second column of this is what the autopicker determines is the bed/srf
 
 top_bound = pick_dict['pik1.chan2.test_adj'].top
 lower_bound = pick_dict['pik1.chan2.test_adj'].bottom
+
+print top_bound
+print lower_bound
 '''
 return array of [x_loc, y_loc]
 '''
